@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -24,9 +25,18 @@ func Map(key string, value string) []KVPair {
 	return output
 }
 
-//func Reduce(key string, value []string) float64 {
+func Reduce(key string, value []string) float64 {
 
-// Converting from a string to float may be useful
-//val, err := strconv.ParseFloat(INPUT, 64)
-
-//}
+	// Converting from a string to float may be useful
+	var max float64 = -1000
+	for _, i := range value {
+		val, err := strconv.ParseFloat(i, 64)
+		if err != nil {
+			panic(err)
+		}
+		if val > max {
+			max = val
+		}
+	}
+	return max
+}
